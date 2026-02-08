@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Affiliates Dashboard
 
-## Getting Started
+A Next.js dashboard for affiliates with Clerk authentication and MongoDB storage. Built with the Tailwind UI template and themed with sky-blue, orange, and white.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js** (App Router)
+- **Clerk** – authentication
+- **MongoDB** (via Mongoose) – data storage
+- **Tailwind CSS** – styling
+- **Headless UI** – accessible components
+- **Heroicons** – icons
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Install dependencies** (already done)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+2. **Environment variables**
 
-To learn more about Next.js, take a look at the following resources:
+   Copy the example env file and fill in your keys:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   cp .env.local.example .env.local
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   - **Clerk:** Create an application at [dashboard.clerk.com](https://dashboard.clerk.com) and add `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY`.
+   - **MongoDB:** Create a cluster at [cloud.mongodb.com](https://cloud.mongodb.com) and set `MONGODB_URI`.
 
-## Deploy on Vercel
+3. **Run the app**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   Open [http://localhost:3000](http://localhost:3000). You’ll be redirected to sign-in if not authenticated. Use Clerk’s sign-up to create an account.
+
+   **Note:** `npm run build` requires valid Clerk keys in `.env.local` (and optionally MongoDB for API routes that use it). Without them, the build will fail with a missing publishable key error.
+
+## Routes
+
+| Path        | Description                    |
+| ----------- | ------------------------------ |
+| `/`         | Home – dashboard (stats, activity, clients) |
+| `/tools`    | Affiliate tools (links, analytics, creatives) |
+| `/academy`  | Courses and certification      |
+| `/support`  | Help center, chat, email       |
+| `/simulators` | Commission & ROI simulators |
+| `/sign-in`  | Clerk sign-in                  |
+| `/sign-up`  | Clerk sign-up                  |
+
+## Project structure
+
+- `src/app/(dashboard)/` – Dashboard layout and pages (Home, Tools, Academy, Support, Simulators)
+- `src/app/sign-in/`, `src/app/sign-up/` – Clerk auth pages
+- `src/components/DashboardShell.tsx` – Header, nav, mobile menu, user button
+- `src/lib/mongodb.ts` – MongoDB connection helper (use with `connectDB()` in API routes or server components)
+
+## Logo & theme
+
+- Logo/favicon: `public/logo.png`
+- Theme: sky-blue (`sky-*`), orange (`orange-*`), and white. Primary actions use `sky-600`; accents use `orange-*` where needed.
