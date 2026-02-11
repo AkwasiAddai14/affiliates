@@ -16,7 +16,7 @@ steps:
   - 'NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_live_Y2xlcmsuanVudGVyLm5sJA'
   - 'CLERK_SECRET_KEY=sk_live_AseQfBAHQjInOqHTupuqKrUYXVZI4oCCU04WIZpeST'
 
-# options:
-#   logging: NONE
+options:
+  logging: CLOUD_LOGGING_ONLY
 
 
