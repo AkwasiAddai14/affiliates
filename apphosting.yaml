@@ -1,0 +1,21 @@
+# Settings for Backend (on Cloud Run).
+# See https://firebase.google.com/docs/app-hosting/configure#cloud-run
+runConfig:
+  minInstances: 0
+  maxInstances: 1
+  concurrency: 100
+  cpu: 8
+  memoryMiB: 16384
+
+  # Environment variables and secrets 
+  env:
+    - variable: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+      value: pk_live_Y2xlcmsuanVudGVyLm5sJA
+      availability:
+      - BUILD
+      - RUNTIME
+    - variable: CLERK_SECRET_KEY
+      value: sk_live_AseQfBAHQjInOqHTupuqKrUYXVZI4oCCU04WIZpeST
+      availability:
+      - BUILD
+      - RUNTIME
