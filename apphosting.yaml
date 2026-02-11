@@ -10,12 +10,12 @@ runConfig:
   # Environment variables and secrets 
   env:
     - variable: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-      value: pk_live_Y2xlcmsuanVudGVyLm5sJA
+      value: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
       availability:
       - BUILD
       - RUNTIME
     - variable: CLERK_SECRET_KEY
-      value: sk_live_AseQfBAHQjInOqHTupuqKrUYXVZI4oCCU04WIZpeST
+      value: process.env.CLERK_SECRET_KEY
       availability:
       - BUILD
       - RUNTIME
