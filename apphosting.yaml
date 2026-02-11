@@ -1,21 +1,24 @@
-# # Settings for Backend (on Cloud Run).
-# # See https://firebase.google.com/docs/app-hosting/configure#cloud-run
-# runConfig:
-#   minInstances: 0
-#   maxInstances: 1
-#   concurrency: 100
-#   cpu: 8
-#   memoryMiB: 16384
+# Settings for Backend (on Cloud Run).
+# See https://firebase.google.com/docs/app-hosting/configure
+runConfig:
+  minInstances: 0
+  maxInstances: 10
+  concurrency: 80
+  cpu: 1
+  memoryMiB: 512
 
-#   # Environment variables and secrets 
-#   env:
-#     - variable: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-#       value: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-#       availability:
-#       - BUILD
-#       - RUNTIME
-#     - variable: CLERK_SECRET_KEY
-#       value: process.env.CLERK_SECRET_KEY
-#       availability:
-#       - BUILD
-#       - RUNTIME
+  # Clerk keys must be set as secrets so they're available at BUILD (for Next.js inlining) and RUNTIME.
+  # Create secrets: firebase apphosting:secrets:set NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  #                firebase apphosting:secrets:set CLERK_SECRET_KEY
+  # Then: firebase apphosting:secrets:grantaccess
+  env:
+    - variable: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+      secret: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+      availability:
+        - BUILD
+        - RUNTIME
+    - variable: CLERK_SECRET_KEY
+      secret: CLERK_SECRET_KEY
+      availability:
+        - BUILD
+        - RUNTIME
