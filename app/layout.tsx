@@ -24,15 +24,25 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  // Avoid ClerkProvider when key is missing so static prerender (e.g. /_not-found) succeeds.
+  // Set NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY at build time (e.g. App Hosting secrets) for auth to work.
+  const body = (
+    <body
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    >
+      {children}
+    </body>
+  );
+
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      {publishableKey ? (
+        <ClerkProvider publishableKey={publishableKey}>{body}</ClerkProvider>
+      ) : (
+        body
+      )}
+    </html>
   );
 }
