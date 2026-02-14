@@ -11,7 +11,7 @@ const courses = [
     name: 'Getting started as an affiliate',
     description: 'Learn the basics: tracking, payouts, and best practices.',
     icon: AcademicCapIcon,
-    lessons: 10,
+    lessons: 8,
     duration: '45 min',
     progress: 0,
   },
