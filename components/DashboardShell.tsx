@@ -8,6 +8,10 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { UserButton } from '@clerk/nextjs'
 import Image from 'next/image'
 
+const hasClerkKey = Boolean(
+  typeof process !== 'undefined' && process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+)
+
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'Tools', href: '/tools' },
@@ -69,14 +73,23 @@ export default function DashboardShell({
             ))}
           </nav>
           <div className="flex flex-1 shrink-0 items-center justify-end gap-x-4">
-            <UserButton
-              afterSignOutUrl="/"
-              appearance={{
-                elements: {
-                  avatarBox: 'size-8 rounded-full ring-1 ring-slate-200',
-                },
-              }}
-            />
+            {hasClerkKey ? (
+              <UserButton
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    avatarBox: 'size-8 rounded-full ring-1 ring-slate-200',
+                  },
+                }}
+              />
+            ) : (
+              <Link
+                href="/sign-in"
+                className="text-sm font-semibold text-slate-700 hover:text-sky-600"
+              >
+                Sign in
+              </Link>
+            )}
           </div>
         </div>
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
