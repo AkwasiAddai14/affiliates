@@ -13,12 +13,12 @@ runConfig:
 # Then: firebase apphosting:secrets:grantaccess
 env:
   - variable: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-    secret: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+    value: pk_live_Y2xlcmsuanVudGVyLm5sJA
     availability:
       - BUILD
       - RUNTIME
   - variable: CLERK_SECRET_KEY
-    secret: CLERK_SECRET_KEY
+    value: sk_live_AseQfBAHQjInOqHTupuqKrUYXVZI4oCCU04WIZpeST
     availability:
       - BUILD
       - RUNTIME
